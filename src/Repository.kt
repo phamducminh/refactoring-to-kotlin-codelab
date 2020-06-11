@@ -9,20 +9,17 @@ object Repository {
 
     val formattedUserNames: List<String>
         get() {
-            val userNames = ArrayList<String>(users.size)
-            for ((firstname, lastname) in users) {
-                val name = if (lastname != null) {
-                    if (firstname != null) {
-                        "$firstname $lastname"
+            return users.map { user ->
+                if (user.lastName != null) {
+                    if (user.firstName != null) {
+                        "${user.firstName} ${user.lastName}"
                     } else {
-                        lastname
+                        user.lastName ?: "Unknown"
                     }
                 } else {
-                    firstname ?: "Unknown"
+                    user.firstName ?: "Unknown"
                 }
-                userNames.add(name)
             }
-            return userNames
         }
 
     // keeping the constructor private to enforce the usage of getInstance
